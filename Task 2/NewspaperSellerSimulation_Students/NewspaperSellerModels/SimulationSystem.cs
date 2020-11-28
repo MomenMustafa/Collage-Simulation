@@ -153,7 +153,7 @@ namespace NewspaperSellerModels
                 DaysWithMoreDemand = SimulationTable.Count(itm => itm.LostProfit != 0),
                 DaysWithUnsoldPapers = SimulationTable.Count(itm => itm.ScrapProfit != 0)
             };
-            return performanceMeasures;
+            return PerformanceMeasures = performanceMeasures;
         }
         private Enums.DayType GetDayType(int rand)
         {

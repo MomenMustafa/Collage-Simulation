@@ -4,6 +4,7 @@ using System.Windows.Forms;
 using NewspaperSellerModels;
 using System.Data;
 using System.Collections.Generic;
+using NewspaperSellerTesting;
 
 namespace NewspaperSellerSimulation
 {
@@ -29,8 +30,15 @@ namespace NewspaperSellerSimulation
 
             var simulationSystem = new SimulationSystem();
             simulationSystem.LoadCase(fileName);
+
             simulationSystem.BuildSimulationTable();
             BuildGridView(simulationSystem.SimulationTable);
+
+            var measures = simulationSystem.CalculatePerformance();
+            ShowMeasures(measures);
+
+            string testingResults = TestingManager.Test(simulationSystem, Constants.FileNames.TestCase1);
+            MessageBox.Show(testingResults);
         }
 
         private void BuildGridView(List<SimulationCase>simTable)
@@ -52,6 +60,16 @@ namespace NewspaperSellerSimulation
                 table.Rows.Add(Case.DayNo, Case.RandomNewsDayType, Case.NewsDayType, Case.RandomDemand, Case.Demand, Case.SalesProfit, Case.LostProfit, Case.ScrapProfit, Case.DailyNetProfit);
             }
             dataGridView1.DataSource = table;
+        }
+        private void ShowMeasures(PerformanceMeasures measures)
+        {
+            label_total_sp.Text = measures.TotalSalesProfit.ToString("C");
+            label_TC.Text = measures.TotalCost.ToString("C");
+            label_TLP.Text = measures.TotalLostProfit.ToString("C");
+            label_TSP.Text = measures.TotalScrapProfit.ToString("C");
+            label_TNP.Text = measures.TotalNetProfit.ToString("C");
+            label_DMD.Text = measures.DaysWithMoreDemand.ToString();
+            label_DUP.Text = measures.DaysWithUnsoldPapers.ToString();
         }
     }
 }
