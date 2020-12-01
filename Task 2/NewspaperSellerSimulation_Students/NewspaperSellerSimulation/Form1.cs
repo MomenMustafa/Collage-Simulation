@@ -37,7 +37,7 @@ namespace NewspaperSellerSimulation
             var measures = simulationSystem.CalculatePerformance();
             ShowMeasures(measures);
 
-            string testingResults = TestingManager.Test(simulationSystem, Constants.FileNames.TestCase1);
+            string testingResults = TestingManager.Test(simulationSystem, Constants.FileNames.TestCase2);
             MessageBox.Show(testingResults);
         }
 
